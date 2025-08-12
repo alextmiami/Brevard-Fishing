@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum WaterType {
+  OCEAN
+  ESTUARY
+  LAGOON
+  INLET
+  PIER
+  BRIDGE
+}
+
+model SpotSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  waterType WaterType
+  lat       Float
+  lon       Float
+  tips      String?
+  species   String[]
+  createdAt DateTime @default(now())
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  phone     String?  @unique
+  email     String?  @unique
+  createdAt DateTime @default(now())
+}
